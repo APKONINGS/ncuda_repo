@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NCUDA — Ngwo Cultural and Development Association
 
-## Getting Started
+Version 1 of NCUDA's website and secure member portal.
 
-First, run the development server:
+- **Public site:** Home, About, Activities, Contact
+- **Member Portal:** sign-in, dashboard, meetings and minutes, attendance, contributions, documents, notifications and profile. Officers also get members, roles & access, and the audit log. There is **no public registration**: officers create accounts.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running it on another computer
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Requires **Node.js 20.9 or newer** (`node -v`).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Copy the project **without** `node_modules` and `.next`. Those folders are built for the computer they were made on and break when copied to another one.
+2. In the project folder, run `npm install`. This rebuilds `node_modules` for that computer.
+3. To carry over the test data and settings, include `.env.local` and the `.data` folder.
+4. Run `npm run dev -- --hostname 0.0.0.0` and open http://localhost:3000. Keep that terminal window open while using the site.
 
-## Learn More
+### Demo accounts
 
-To learn more about Next.js, take a look at the following resources:
+The portal runs in **demo mode** with fictional data. Open `/member-portal`, expand **"Try a demonstration account"** and pick a role. The password for every demo account is `ncuda-demo`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Account | Shows |
+| --- | --- |
+| `member` | Ordinary member: own records only |
+| `president` | Chapter President: appoints chapter officers; finances **view-only** |
+| `finsec` | Financial Secretary: record and void contributions in their chapter |
+| `secretary` | Chapter Secretary: attendance register, draft minutes |
+| `coordinator` | Regional Coordinator: oversight of the chapters in their region |
+| `president.general` | President General: organisation-wide view (finances grouped and filterable), appoints the central EXCO and coordinators, messages any group, creates regions with their Regional Coordinators (coordinators create chapters) |
+| `central.finsec` | National Financial Secretary: keeps the central ledger and central expenses; all chapters' records; sets up organisation-wide projects (e.g. the tractor project) |
+| `secretary.general` | National Secretary General: central meetings, minutes and documents |
+| `coordinator.b` | Regional Coordinator for Region B: creates chapters in Region B with their founding EXCO |
+| `president.b2` | Chapter President of B2 |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Demo changes (new contributions, role changes, enrolments) persist until the server restarts.
 
-## Deploy on Vercel
+**A suggested demo path:**
+1. Sign in as `president.general`. Open **Finances → Chapter records**: records are grouped by chapter; filter by the tractor collection and a date range. Under **Notifications → Send a message**, message all Chapter Presidents.
+2. Sign in as `president`. Open the message (the unread count drops when you close it), then make *Sample Member 01* a Financial Secretary under **Roles & access**.
+3. Sign in as `finsec`. Open **Finances → Record a payment**: choose a member and a project — the description and expected amount fill in — record what was paid, then void it with a reason. Record a fine, an **Expense**, and see who still owes under **Collections**.
+4. Back as `president.general`, open the **Audit log** to see every step, with before and after values.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| | |
+| --- | --- |
+| `npm run dev` / `build` / `start` | Next.js |
+| `npm test` | Authorization engine and command tests (Vitest) |
+| `npm run test:db` | Runs every Supabase migration in PGlite and checks the RLS behaviour |
+| `npm run typecheck` / `lint` | TypeScript / ESLint |
+| `npm run db:seed-roles` | Regenerates the roles/permissions seed migration from `lib/permissions` |
+
+## Configuration
+
+Copy `.env.example` to `.env.local`. In production you **must** set `SESSION_SECRET`. The contact form delivers to `CONTACT_WEBHOOK_URL`; without it, the form tells visitors that it isn't switched on yet.
+
+## Documentation
+
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): RBAC model, Supabase plan, security checklist
+- [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md): visual direction, tokens, components
+- [docs/RESEARCH.md](docs/RESEARCH.md): cultural research, sources, and what was deliberately not used
+- [docs/CONTENT_TODO.md](docs/CONTENT_TODO.md): everything NCUDA needs to supply
+- [public/images/SOURCES.md](public/images/SOURCES.md): photo licences and credits
+
+## Stack
+
+Next.js 16 (App Router, Turbopack), React 19, TypeScript, Tailwind CSS v4, Zod and Supabase (`@supabase/ssr`).

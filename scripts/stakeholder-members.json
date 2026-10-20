@@ -1,0 +1,542 @@
+[
+ {
+  "sn": 1,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 1",
+  "email": "bueamember1@ncuda.com",
+  "phone": "698418294",
+  "post": "Vice President General"
+ },
+ {
+  "sn": 2,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 2",
+  "email": "bueamember2@ncuda.com",
+  "phone": "623505220",
+  "post": "Regional Coordinator"
+ },
+ {
+  "sn": 3,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 3",
+  "email": "bueamember3@ncuda.com",
+  "phone": "670487487",
+  "post": "Chapter President"
+ },
+ {
+  "sn": 4,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 4",
+  "email": "bueamember4@ncuda.com",
+  "phone": "680612416",
+  "post": "Chapter Secretary"
+ },
+ {
+  "sn": 5,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 5",
+  "email": "bueamember5@ncuda.com",
+  "phone": "624592256",
+  "post": "Financial Secretary"
+ },
+ {
+  "sn": 6,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 6",
+  "email": "bueamember6@ncuda.com",
+  "phone": "610493477",
+  "post": "Treasurer"
+ },
+ {
+  "sn": 7,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 7",
+  "email": "bueamember7@ncuda.com",
+  "phone": "664524625",
+  "post": "Member"
+ },
+ {
+  "sn": 8,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 8",
+  "email": "bueamember8@ncuda.com",
+  "phone": "619032033",
+  "post": "Member"
+ },
+ {
+  "sn": 9,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 9",
+  "email": "bueamember9@ncuda.com",
+  "phone": "661712301",
+  "post": "Member"
+ },
+ {
+  "sn": 10,
+  "region": "South West",
+  "chapter": "Buea",
+  "name": "Buea Member 10",
+  "email": "bueamember10@ncuda.com",
+  "phone": "617194170",
+  "post": "Member"
+ },
+ {
+  "sn": 11,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 1",
+  "email": "bomakamember1@ncuda.com",
+  "phone": "608404337",
+  "post": "National Secretary General"
+ },
+ {
+  "sn": 12,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 2",
+  "email": "bomakamember2@ncuda.com",
+  "phone": "609255689",
+  "post": "Chapter President"
+ },
+ {
+  "sn": 13,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 3",
+  "email": "bomakamember3@ncuda.com",
+  "phone": "651450878",
+  "post": "Chapter Secretary"
+ },
+ {
+  "sn": 14,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 4",
+  "email": "bomakamember4@ncuda.com",
+  "phone": "639112034",
+  "post": "Financial Secretary"
+ },
+ {
+  "sn": 15,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 5",
+  "email": "bomakamember5@ncuda.com",
+  "phone": "685385594",
+  "post": "Treasurer"
+ },
+ {
+  "sn": 16,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 6",
+  "email": "bomakamember6@ncuda.com",
+  "phone": "643347529",
+  "post": "Member"
+ },
+ {
+  "sn": 17,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 7",
+  "email": "bomakamember7@ncuda.com",
+  "phone": "611648091",
+  "post": "Member"
+ },
+ {
+  "sn": 18,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 8",
+  "email": "bomakamember8@ncuda.com",
+  "phone": "606535119",
+  "post": "Member"
+ },
+ {
+  "sn": 19,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 9",
+  "email": "bomakamember9@ncuda.com",
+  "phone": "644752960",
+  "post": "Member"
+ },
+ {
+  "sn": 20,
+  "region": "South West",
+  "chapter": "Bomaka",
+  "name": "Bomaka Member 10",
+  "email": "bomakamember10@ncuda.com",
+  "phone": "642567191",
+  "post": "Member"
+ },
+ {
+  "sn": 21,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 1",
+  "email": "bamendamember1@ncuda.com",
+  "phone": "685915380",
+  "post": "National Financial Secretary"
+ },
+ {
+  "sn": 22,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 2",
+  "email": "bamendamember2@ncuda.com",
+  "phone": "695534175",
+  "post": "Regional Coordinator"
+ },
+ {
+  "sn": 23,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 3",
+  "email": "bamendamember3@ncuda.com",
+  "phone": "644932805",
+  "post": "Chapter President"
+ },
+ {
+  "sn": 24,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 4",
+  "email": "bamendamember4@ncuda.com",
+  "phone": "664490541",
+  "post": "Chapter Secretary"
+ },
+ {
+  "sn": 25,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 5",
+  "email": "bamendamember5@ncuda.com",
+  "phone": "671752693",
+  "post": "Financial Secretary"
+ },
+ {
+  "sn": 26,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 6",
+  "email": "bamendamember6@ncuda.com",
+  "phone": "654863709",
+  "post": "Treasurer"
+ },
+ {
+  "sn": 27,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 7",
+  "email": "bamendamember7@ncuda.com",
+  "phone": "626066399",
+  "post": "Member"
+ },
+ {
+  "sn": 28,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 8",
+  "email": "bamendamember8@ncuda.com",
+  "phone": "659166979",
+  "post": "Member"
+ },
+ {
+  "sn": 29,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 9",
+  "email": "bamendamember9@ncuda.com",
+  "phone": "666093030",
+  "post": "Member"
+ },
+ {
+  "sn": 30,
+  "region": "North West",
+  "chapter": "Bamenda",
+  "name": "Bamenda Member 10",
+  "email": "bamendamember10@ncuda.com",
+  "phone": "631128159",
+  "post": "Member"
+ },
+ {
+  "sn": 31,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 1",
+  "email": "ngwomember1@ncuda.com",
+  "phone": "615259896",
+  "post": "Central Treasurer"
+ },
+ {
+  "sn": 32,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 2",
+  "email": "ngwomember2@ncuda.com",
+  "phone": "682248954",
+  "post": "Chapter President"
+ },
+ {
+  "sn": 33,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 3",
+  "email": "ngwomember3@ncuda.com",
+  "phone": "671208238",
+  "post": "Chapter Secretary"
+ },
+ {
+  "sn": 34,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 4",
+  "email": "ngwomember4@ncuda.com",
+  "phone": "652585790",
+  "post": "Financial Secretary"
+ },
+ {
+  "sn": 35,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 5",
+  "email": "ngwomember5@ncuda.com",
+  "phone": "646199871",
+  "post": "Treasurer"
+ },
+ {
+  "sn": 36,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 6",
+  "email": "ngwomember6@ncuda.com",
+  "phone": "647851493",
+  "post": "Member"
+ },
+ {
+  "sn": 37,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 7",
+  "email": "ngwomember7@ncuda.com",
+  "phone": "673760328",
+  "post": "Member"
+ },
+ {
+  "sn": 38,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 8",
+  "email": "ngwomember8@ncuda.com",
+  "phone": "667557249",
+  "post": "Member"
+ },
+ {
+  "sn": 39,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 9",
+  "email": "ngwomember9@ncuda.com",
+  "phone": "606588438",
+  "post": "Member"
+ },
+ {
+  "sn": 40,
+  "region": "North West",
+  "chapter": "Ngwo",
+  "name": "Ngwo Member 10",
+  "email": "ngwomember10@ncuda.com",
+  "phone": "627311400",
+  "post": "Member"
+ },
+ {
+  "sn": 41,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 1",
+  "email": "usamember1@ncuda.com",
+  "phone": "+1 202-555-0101",
+  "post": "President General"
+ },
+ {
+  "sn": 42,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 2",
+  "email": "usamember2@ncuda.com",
+  "phone": "+1 202-555-0102",
+  "post": "Chapter President"
+ },
+ {
+  "sn": 43,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 3",
+  "email": "usamember3@ncuda.com",
+  "phone": "+1 202-555-0103",
+  "post": "Chapter Secretary"
+ },
+ {
+  "sn": 44,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 4",
+  "email": "usamember4@ncuda.com",
+  "phone": "+1 202-555-0104",
+  "post": "Financial Secretary"
+ },
+ {
+  "sn": 45,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 5",
+  "email": "usamember5@ncuda.com",
+  "phone": "+1 202-555-0105",
+  "post": "Treasurer"
+ },
+ {
+  "sn": 46,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 6",
+  "email": "usamember6@ncuda.com",
+  "phone": "+1 202-555-0106",
+  "post": "Member"
+ },
+ {
+  "sn": 47,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 7",
+  "email": "usamember7@ncuda.com",
+  "phone": "+1 202-555-0107",
+  "post": "Member"
+ },
+ {
+  "sn": 48,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 8",
+  "email": "usamember8@ncuda.com",
+  "phone": "+1 202-555-0108",
+  "post": "Member"
+ },
+ {
+  "sn": 49,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 9",
+  "email": "usamember9@ncuda.com",
+  "phone": "+1 202-555-0109",
+  "post": "Member"
+ },
+ {
+  "sn": 50,
+  "region": "Diaspora",
+  "chapter": "USA",
+  "name": "USA Member 10",
+  "email": "usamember10@ncuda.com",
+  "phone": "+1 202-555-0110",
+  "post": "Member"
+ },
+ {
+  "sn": 51,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 1",
+  "email": "eumember1@ncuda.com",
+  "phone": "+49 151 00000001",
+  "post": "Chapter President"
+ },
+ {
+  "sn": 52,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 2",
+  "email": "eumember2@ncuda.com",
+  "phone": "+33 6 00 00 00 01",
+  "post": "Chapter Secretary"
+ },
+ {
+  "sn": 53,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 3",
+  "email": "eumember3@ncuda.com",
+  "phone": "+34 600 000 001",
+  "post": "Financial Secretary"
+ },
+ {
+  "sn": 54,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 4",
+  "email": "eumember4@ncuda.com",
+  "phone": "+39 320 000 001",
+  "post": "Treasurer"
+ },
+ {
+  "sn": 55,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 5",
+  "email": "eumember5@ncuda.com",
+  "phone": "+31 6 00000001",
+  "post": "Member"
+ },
+ {
+  "sn": 56,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 6",
+  "email": "eumember6@ncuda.com",
+  "phone": "+32 470 000 001",
+  "post": "Member"
+ },
+ {
+  "sn": 57,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 7",
+  "email": "eumember7@ncuda.com",
+  "phone": "+353 80 000 0001",
+  "post": "Member"
+ },
+ {
+  "sn": 58,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 8",
+  "email": "eumember8@ncuda.com",
+  "phone": "+351 910 000 001",
+  "post": "Member"
+ },
+ {
+  "sn": 59,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 9",
+  "email": "eumember9@ncuda.com",
+  "phone": "+46 70 000 0001",
+  "post": "Member"
+ },
+ {
+  "sn": 60,
+  "region": "Diaspora",
+  "chapter": "EU",
+  "name": "EU Member 10",
+  "email": "eumember10@ncuda.com",
+  "phone": "+48 500 000 001",
+  "post": "Member"
+ }
+]

@@ -1,0 +1,295 @@
+<title>NCUDA Finance Blueprint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" />
+<style>
+  /* Layout: one reading column; each section is a "slide" a presenter can scroll to, with flow diagrams drawn in HTML. */
+  :root {
+    --bg: #faf6ef; --surface: #fffdf9; --tint: #f3ebdd; --line: #ddd3c2;
+    --ink: #1c1a17; --muted: #625b51;
+    --forest: #1d3a2d; --forest-soft: #e3ebe5; --earth: #8e3b1f; --earth-soft: #f6e3d7; --gold: #a67c2a; --gold-soft: #f5ecd6;
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+    --step: 1.25rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12160f; --surface: #1a2019; --tint: #222a21; --line: #36402f;
+      --ink: #efe9dd; --muted: #b4ab9c;
+      --forest: #9cc2a8; --forest-soft: #203226; --earth: #e9a07f; --earth-soft: #3a2219; --gold: #dcb867; --gold-soft: #33291a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12160f; --surface: #1a2019; --tint: #222a21; --line: #36402f;
+    --ink: #efe9dd; --muted: #b4ab9c;
+    --forest: #9cc2a8; --forest-soft: #203226; --earth: #e9a07f; --earth-soft: #3a2219; --gold: #dcb867; --gold-soft: #33291a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 1.0625rem/1.6 var(--body); padding: 0 16px; }
+  .page { max-width: 64rem; margin: 0 auto; padding-block: 3rem 5rem; display: grid; gap: 3.5rem; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; color: var(--forest); text-wrap: balance; margin: 0; line-height: 1.15; }
+  h1 { font-size: clamp(2.25rem, 5vw, 3.5rem); }
+  h2 { font-size: clamp(1.6rem, 3.2vw, 2.25rem); }
+  h3 { font-size: 1.25rem; }
+  p { margin: 0; max-width: 65ch; color: var(--muted); }
+  strong { color: var(--ink); font-weight: 600; }
+  .eyebrow { font: 600 0.75rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--earth); }
+  .num { font-variant-numeric: tabular-nums; }
+
+  header.hero { display: grid; gap: 1rem; padding-bottom: 2rem; border-bottom: 2px solid var(--forest); }
+  header.hero p { font-size: 1.2rem; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+  .fact { border-top: 3px solid var(--gold); padding-top: 0.75rem; display: grid; gap: 0.25rem; }
+  .fact b { font: 400 1.5rem/1.2 var(--display); color: var(--ink); }
+  .fact span { color: var(--muted); font-size: 0.95rem; }
+
+  section { display: grid; gap: 1.25rem; }
+  .section-head { display: grid; gap: 0.5rem; }
+
+  /* Flow diagrams: boxes joined by arrows; they wrap to a column on narrow screens. */
+  .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.75rem; }
+  .node { flex: 1 1 10rem; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; display: grid; gap: 0.35rem; align-content: start; }
+  .node .who { font: 600 0.72rem/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .node b { font: 400 1.15rem/1.25 var(--display); color: var(--ink); }
+  .node p { font-size: 0.95rem; }
+  .node.forest { background: var(--forest-soft); border-color: transparent; }
+  .node.earth { background: var(--earth-soft); border-color: transparent; }
+  .node.gold { background: var(--gold-soft); border-color: transparent; }
+  .arrow { flex: 0 0 auto; align-self: center; color: var(--gold); font: 400 1.75rem/1 var(--display); }
+  .arrow small { display: block; font: 600 0.7rem/1.2 var(--body); color: var(--muted); text-align: center; max-width: 7rem; }
+  @media (max-width: 760px) { .flow { flex-direction: column; } .arrow { transform: rotate(90deg); } .arrow small { transform: rotate(-90deg); } }
+
+  .band { background: var(--tint); border-radius: 14px; padding: 1.5rem; display: grid; gap: 1rem; }
+  .band.branch { border: 1px dashed var(--line); background: transparent; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; display: grid; gap: 0.6rem; align-content: start; }
+  .card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); display: grid; gap: 0.35rem; }
+  .tag { justify-self: start; font: 600 0.75rem/1 var(--body); padding: 0.35rem 0.6rem; border-radius: 999px; }
+  .tag.forest { background: var(--forest-soft); color: var(--forest); }
+  .tag.earth { background: var(--earth-soft); color: var(--earth); }
+  .tag.gold { background: var(--gold-soft); color: var(--gold); }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 40rem; font-size: 0.95rem; }
+  th, td { padding: 0.75rem 0.9rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font: 600 0.75rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--tint); }
+  td:first-child { font-weight: 600; color: var(--ink); }
+  tr:last-child td { border-bottom: 0; }
+  .yes { color: var(--forest); font-weight: 600; }
+  .no { color: var(--muted); opacity: 0.6; }
+
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0.75rem 2rem; margin: 0; padding: 0; list-style: none; }
+  .rules li { display: grid; gap: 0.2rem; padding-left: 1rem; border-left: 3px solid var(--forest); }
+  .rules li b { color: var(--ink); font-weight: 600; }
+  .rules li span { color: var(--muted); font-size: 0.95rem; }
+
+  .summary-card { max-width: 24rem; background: var(--tint); border-radius: 12px; padding: 1.25rem 1.5rem; display: grid; gap: 0.5rem; }
+  .summary-card .total { font: 400 2rem/1.1 var(--display); color: var(--ink); }
+  .summary-card dl { margin: 0.5rem 0 0; display: grid; gap: 0.35rem; border-top: 1px solid var(--line); padding-top: 0.75rem; }
+  .summary-card dl div { display: flex; justify-content: space-between; gap: 1rem; }
+  .summary-card dt { color: var(--muted); }
+  .summary-card dd { margin: 0; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .example { font: 600 0.7rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 1.25rem; }
+</style>
+
+<div class="page">
+  <header class="hero">
+    <span class="eyebrow">NCUDA Member Portal · Finance blueprint</span>
+    <h1>How money moves through NCUDA</h1>
+    <p>Members pay in person to their chapter's Financial Secretary. The portal does not take payments. It keeps the record: who paid what, for what, when, and who received it, with a receipt number every time.</p>
+    <div class="facts">
+      <div class="fact"><b>3 kinds of money in</b><span>Registration, Contributions, Fines</span></div>
+      <div class="fact"><b>2 ways money goes out</b><span>Expenses, and project money for committees</span></div>
+      <div class="fact"><b>Every record numbered</b><span>Receipts RC-2026-00001, vouchers PV-2026-00001</span></div>
+      <div class="fact"><b>Nothing is deleted</b><span>Mistakes are voided with a reason and stay visible</span></div>
+    </div>
+  </header>
+
+  <section id="big-picture">
+    <div class="section-head">
+      <span class="eyebrow">1 · The big picture</span>
+      <h2>From a member's pocket to the work on the ground</h2>
+    </div>
+    <div class="band">
+      <div class="flow" aria-label="Main money flow">
+        <div class="node"><span class="who">Member</span><b>Pays in person</b><p>Registration, a project contribution or a fine.</p></div>
+        <div class="arrow">→</div>
+        <div class="node forest"><span class="who">Chapter Financial Secretary</span><b>Records it</b><p>The member gets the receipt in their notifications at once.</p></div>
+        <div class="arrow">→</div>
+        <div class="node gold"><span class="who">Chapter funds</span><b>Held by the chapter</b><p>Visible to the chapter's officers and those above them.</p></div>
+        <div class="arrow">→</div>
+        <div class="node earth"><span class="who">Money out</span><b>Spent or sent on</b><p>Chapter expenses, or money sent to a project manager.</p></div>
+      </div>
+    </div>
+    <div class="band branch">
+      <div class="flow" aria-label="Central money flow">
+        <div class="node"><span class="who">Member</span><b>Pays the centre directly</b><p>For an organisation-wide project, or a fine.</p></div>
+        <div class="arrow">→</div>
+        <div class="node forest"><span class="who">National Financial Secretary</span><b>Records it centrally</b><p>In the central ledger, with a receipt.</p></div>
+        <div class="arrow">→</div>
+        <div class="node gold"><span class="who">Central funds</span><b>Held nationally</b><p>Spent through central expenses.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="money-in">
+    <div class="section-head">
+      <span class="eyebrow">2 · Money coming in</span>
+      <h2>Three kinds of payment, always paid in full</h2>
+      <p>There are no part-payments. Every payment is the full amount due, so a record is either paid or not paid.</p>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="tag forest">Registration</span>
+        <h3>Being an active member</h3>
+        <ul>
+          <li>Each chapter's Financial Secretary sets <strong>one fee for everyone</strong> in the chapter, officers included.</li>
+          <li>Paid when a person is registered, and again each year when the President General starts the yearly renewal.</li>
+          <li>Until it is recorded, the person's account is <strong>inactive</strong>.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag gold">Contributions</span>
+        <h3>Paying towards a project</h3>
+        <ul>
+          <li>A project has a purpose and two amounts: one for <strong>executives</strong>, one for <strong>members</strong>.</li>
+          <li>Everyone covered by the project pays their amount <strong>once</strong>.</li>
+          <li>Members see what they still owe under My Summary.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag earth">Fines</span>
+        <h3>Penalties with a reason</h3>
+        <ul>
+          <li>The Financial Secretary records the reason and the amount.</li>
+          <li>Paid on the spot, or recorded as owed and paid later in one payment.</li>
+          <li>Unpaid fines must be cleared before a member can move to another chapter.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <span class="eyebrow">3 · Projects</span>
+      <h2>Who sets up a project, and who pays for it</h2>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Project for</th><th>New Project by (project manager)</th><th>Who pays</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>The whole organisation</td><td>National Financial Secretary</td><td>Every member, in every chapter</td><td>A tractor for community farms</td></tr>
+          <tr><td>A region</td><td>That region's Regional Coordinator</td><td>Members of the region's chapters</td><td>A regional cultural week</td></tr>
+          <tr><td>A chapter</td><td>That chapter's Financial Secretary</td><td>Members of that chapter only</td><td>Chairs for the chapter hall</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>On the Contributions page, projects are grouped the same way: whole organisation, regional and chapter, newest first. Each shows the post that set it up, for example "Set up by Buea Financial Secretary", with that person's phone and email.</p>
+  </section>
+
+  <section id="money-out">
+    <div class="section-head">
+      <span class="eyebrow">4 · Money going out</span>
+      <h2>Two ways money leaves a fund</h2>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="tag earth">Expenses</span>
+        <h3>Spending by the keeper of the funds</h3>
+        <ul>
+          <li><strong>Chapter funds:</strong> the chapter's Financial Secretary.</li>
+          <li><strong>Regional funds:</strong> the Regional Coordinator.</li>
+          <li><strong>Central funds:</strong> the National Financial Secretary.</li>
+          <li>Each expense gets a voucher number, such as PV-2026-00007.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag gold">Project money</span>
+        <h3>Funding a committee's work</h3>
+        <ul>
+          <li>Committees take no payments themselves. Members always pay their chapter.</li>
+          <li>For a national or regional project, the chapter sends the money to the <strong>project manager</strong>, whether or not the project has a committee: the National Financial Secretary in office for a national project, the region's Regional Coordinator in office for a regional one. It is recorded as a chapter expense, and the project manager gets a receipt in their notifications.</li>
+          <li>A chapter project's money stays in the chapter.</li>
+          <li>If the project has committees, the project manager gives them what they need (for a chapter project, the chapter's Financial Secretary does, from the chapter's funds). The committee's Financial Secretary gets a receipt too.</li>
+        </ul>
+      </article>
+    </div>
+    <div class="band">
+      <div class="flow" aria-label="Project money flow">
+        <div class="node"><span class="who">Members</span><b>Pay their contribution</b><p>To their chapter's Financial Secretary.</p></div>
+        <div class="arrow">→</div>
+        <div class="node forest"><span class="who">Chapter Financial Secretary</span><b>Sends project money</b><p>Never more than the chapter collected for that project and has not already sent.</p></div>
+        <div class="arrow">→</div>
+        <div class="node gold"><span class="who">Project manager</span><b>Receives and holds it</b><p>Always the post, not the person: the National Financial Secretary in office (national projects) or the region's Regional Coordinator in office (regional ones).</p></div>
+        <div class="arrow">→</div>
+        <div class="node earth"><span class="who">Committee</span><b>Receives what it needs</b><p>Never more than the project manager holds. The committee delivers the result.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="safeguards">
+    <div class="section-head">
+      <span class="eyebrow">5 · Safeguards</span>
+      <h2>How the records stay trustworthy</h2>
+    </div>
+    <ul class="rules">
+      <li><b>Amounts are set, not typed</b><span>The portal fills in the full amount due from the project, the fine or the chapter's fee.</span></li>
+      <li><b>Numbers are automatic</b><span>Receipt and voucher numbers are generated by the portal and cannot be chosen.</span></li>
+      <li><b>The payer is always told</b><span>Every payment sends its receipt to the payer's notifications; a fine imposed or a record voided is reported to them too, with the reason.</span></li>
+      <li><b>Nothing is deleted</b><span>A wrong entry is voided with a written reason and stays in the history.</span></li>
+      <li><b>Everything is logged</b><span>The audit log shows who did what and when, before and after, including who viewed or downloaded financial records.</span></li>
+      <li><b>Limits on sending money</b><span>Chapters cannot send more than they collected; project managers cannot give more than they hold.</span></li>
+      <li><b>The right person records</b><span>Only a chapter's own Financial Secretary records its payments. Others may look but not change.</span></li>
+    </ul>
+  </section>
+
+  <section id="who-sees">
+    <div class="section-head">
+      <span class="eyebrow">6 · Who sees what</span>
+      <h2>Everyone sees their own; officers see their area</h2>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Person</th><th>Own payments</th><th>Others' payments</th><th>Yearly summary</th><th>Records payments</th><th>Sets up projects</th><th>Records expenses</th></tr></thead>
+        <tbody>
+          <tr><td>Member</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Chapter President, Vice President, Treasurer</td><td class="yes">Yes</td><td class="yes">Their chapter</td><td class="yes">Chapter Summary</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>Chapter Financial Secretary</td><td class="yes">Yes</td><td class="yes">Their chapter</td><td class="yes">Chapter Summary</td><td class="yes">Their chapter</td><td class="yes">For the chapter</td><td class="yes">Chapter funds</td></tr>
+          <tr><td>Regional Coordinator</td><td class="yes">Yes</td><td class="yes">Their region (view only)</td><td class="yes">Regional Summary</td><td class="no">No</td><td class="yes">For the region</td><td class="yes">Regional funds</td></tr>
+          <tr><td>President General, Vice President General, Central Treasurer</td><td class="yes">Yes</td><td class="yes">All chapters (view only)</td><td class="yes">National Summary</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><td>National Financial Secretary</td><td class="yes">Yes</td><td class="yes">All chapters</td><td class="yes">National Summary</td><td class="yes">Central ledger</td><td class="yes">For the organisation</td><td class="yes">Central funds</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Officers also see each person's phone and email beside their name, so they can follow up directly.</p>
+    <p>Everything an officer can see can also be <strong>printed</strong> (records, expenses, registration and the summary) or <strong>downloaded as a spreadsheet</strong> for the books. A download holds only what that officer may already see, and each one is recorded in the audit log.</p>
+  </section>
+
+  <section id="year">
+    <div class="section-head">
+      <span class="eyebrow">7 · The year at a glance</span>
+      <h2>One card per fund, every year</h2>
+      <p>The summary shows, for each chapter (or region, or the centre), what came in by kind, what went out, and the balance.</p>
+    </div>
+    <div class="summary-card" aria-label="Example summary card">
+      <span class="example">Example figures</span>
+      <span class="eyebrow">Buea · 2026</span>
+      <span class="total num">FCFA 18,000</span>
+      <span style="color: var(--muted); font-size: 0.9rem">Balance this year (in − out)</span>
+      <dl>
+        <div><dt>Fines</dt><dd>FCFA 0</dd></div>
+        <div><dt>Contributions</dt><dd>FCFA 15,000</dd></div>
+        <div><dt>Registration</dt><dd>FCFA 6,000</dd></div>
+        <div><dt>Expenses</dt><dd>−FCFA 3,000</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <footer>NCUDA Member Portal · Finance blueprint · Describes the portal as built in October 2026. Companion document: the Organisation Blueprint.</footer>
+</div>

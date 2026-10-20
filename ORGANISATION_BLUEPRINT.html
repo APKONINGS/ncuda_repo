@@ -1,0 +1,305 @@
+<title>NCUDA Organisation Blueprint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" />
+<style>
+  /* Layout: one reading column; each section is a "slide" a presenter can scroll to, with the structure and steps drawn in HTML. */
+  :root {
+    --bg: #faf6ef; --surface: #fffdf9; --tint: #f3ebdd; --line: #ddd3c2;
+    --ink: #1c1a17; --muted: #625b51;
+    --forest: #1d3a2d; --forest-soft: #e3ebe5; --earth: #8e3b1f; --earth-soft: #f6e3d7; --gold: #a67c2a; --gold-soft: #f5ecd6;
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12160f; --surface: #1a2019; --tint: #222a21; --line: #36402f;
+      --ink: #efe9dd; --muted: #b4ab9c;
+      --forest: #9cc2a8; --forest-soft: #203226; --earth: #e9a07f; --earth-soft: #3a2219; --gold: #dcb867; --gold-soft: #33291a;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12160f; --surface: #1a2019; --tint: #222a21; --line: #36402f;
+    --ink: #efe9dd; --muted: #b4ab9c;
+    --forest: #9cc2a8; --forest-soft: #203226; --earth: #e9a07f; --earth-soft: #3a2219; --gold: #dcb867; --gold-soft: #33291a;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 1.0625rem/1.6 var(--body); padding: 0 16px; }
+  .page { max-width: 64rem; margin: 0 auto; padding-block: 3rem 5rem; display: grid; gap: 3.5rem; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; color: var(--forest); text-wrap: balance; margin: 0; line-height: 1.15; }
+  h1 { font-size: clamp(2.25rem, 5vw, 3.5rem); }
+  h2 { font-size: clamp(1.6rem, 3.2vw, 2.25rem); }
+  h3 { font-size: 1.25rem; }
+  p { margin: 0; max-width: 65ch; color: var(--muted); }
+  strong { color: var(--ink); font-weight: 600; }
+  .eyebrow { font: 600 0.75rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--earth); }
+
+  header.hero { display: grid; gap: 1rem; padding-bottom: 2rem; border-bottom: 2px solid var(--forest); }
+  header.hero p { font-size: 1.2rem; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+  .fact { border-top: 3px solid var(--gold); padding-top: 0.75rem; display: grid; gap: 0.25rem; }
+  .fact b { font: 400 1.5rem/1.2 var(--display); color: var(--ink); }
+  .fact span { color: var(--muted); font-size: 0.95rem; }
+
+  section { display: grid; gap: 1.25rem; }
+  .section-head { display: grid; gap: 0.5rem; }
+
+  /* The structure: four levels, each a band, joined by a line. */
+  .levels { display: grid; gap: 0.75rem; }
+  .level { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 1rem 1.5rem; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.25rem; }
+  .level.national { background: var(--forest-soft); border-color: transparent; }
+  .level.regional { background: var(--gold-soft); border-color: transparent; }
+  .level.chapter { background: var(--earth-soft); border-color: transparent; }
+  .level h3 { font-size: 1.35rem; }
+  .level .count { color: var(--muted); font-size: 0.9rem; }
+  .posts { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .post { font-size: 0.9rem; padding: 0.3rem 0.65rem; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
+  .level-note { grid-column: 2; color: var(--muted); font-size: 0.95rem; }
+  .down { justify-self: center; color: var(--gold); font: 400 1.5rem/1 var(--display); }
+  @media (max-width: 640px) { .level { grid-template-columns: minmax(0, 1fr); } .level-note { grid-column: 1; } }
+
+  /* Steps: a numbered sequence (the order matters). */
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; counter-reset: step; }
+  .steps li { counter-increment: step; display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: 1rem; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.25rem; }
+  .steps li::before { content: counter(step); font: 400 1.6rem/1 var(--display); color: var(--gold); padding-top: 0.15rem; }
+  .steps b { display: block; font: 400 1.15rem/1.3 var(--display); color: var(--ink); }
+  .steps .who { font: 600 0.72rem/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--earth); display: block; margin-bottom: 0.25rem; }
+  .steps p { font-size: 0.97rem; }
+
+  .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.75rem; }
+  .node { flex: 1 1 9rem; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; display: grid; gap: 0.35rem; align-content: start; }
+  .node b { font: 400 1.1rem/1.25 var(--display); color: var(--ink); }
+  .node p { font-size: 0.93rem; }
+  .node.forest { background: var(--forest-soft); border-color: transparent; }
+  .node.earth { background: var(--earth-soft); border-color: transparent; }
+  .node.gold { background: var(--gold-soft); border-color: transparent; }
+  .arrow { flex: 0 0 auto; align-self: center; color: var(--gold); font: 400 1.75rem/1 var(--display); }
+  @media (max-width: 760px) { .flow { flex-direction: column; } .arrow { transform: rotate(90deg); align-self: center; } }
+  .band { background: var(--tint); border-radius: 14px; padding: 1.5rem; display: grid; gap: 1rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; display: grid; gap: 0.6rem; align-content: start; }
+  .card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); display: grid; gap: 0.35rem; }
+  .tag { justify-self: start; font: 600 0.75rem/1 var(--body); padding: 0.35rem 0.6rem; border-radius: 999px; }
+  .tag.forest { background: var(--forest-soft); color: var(--forest); }
+  .tag.earth { background: var(--earth-soft); color: var(--earth); }
+  .tag.gold { background: var(--gold-soft); color: var(--gold); }
+
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 0.75rem 2rem; margin: 0; padding: 0; list-style: none; }
+  .rules li { display: grid; gap: 0.2rem; padding-left: 1rem; border-left: 3px solid var(--forest); }
+  .rules li b { color: var(--ink); font-weight: 600; }
+  .rules li span { color: var(--muted); font-size: 0.95rem; }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; min-width: 32rem; font-size: 0.95rem; }
+  th, td { padding: 0.75rem 0.9rem; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font: 600 0.75rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); background: var(--tint); }
+  td:first-child { font-weight: 600; color: var(--ink); }
+  tr:last-child td { border-bottom: 0; }
+  footer { color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 1.25rem; }
+</style>
+
+<div class="page">
+  <header class="hero">
+    <span class="eyebrow">NCUDA Member Portal · Organisation blueprint</span>
+    <h1>How NCUDA runs on the member portal</h1>
+    <p>One private portal for the whole association: who belongs where, who holds which post, how members join and stay active, and how chapters and committees do their work. There is no public sign-up. Every account is created by an officer.</p>
+    <div class="facts">
+      <div class="fact"><b>4 levels</b><span>National, regional, chapter, member</span></div>
+      <div class="fact"><b>Everyone in a chapter</b><span>Officers included, at every level</span></div>
+      <div class="fact"><b>One person, one post</b><span>Committee positions are separate</span></div>
+      <div class="fact"><b>Active once registered</b><span>Registration is paid at your chapter</span></div>
+    </div>
+  </header>
+
+  <section id="structure">
+    <div class="section-head">
+      <span class="eyebrow">1 · The structure</span>
+      <h2>Four levels, from the national team to every member</h2>
+    </div>
+    <div class="levels">
+      <div class="level national">
+        <div><h3>National</h3><span class="count">The whole organisation</span></div>
+        <div class="posts"><span class="post">President General</span><span class="post">Vice President General</span><span class="post">National Secretary General</span><span class="post">National Financial Secretary</span><span class="post">Central Treasurer</span></div>
+        <p class="level-note">The President General creates the regions and appoints the national team and each Regional Coordinator.</p>
+      </div>
+      <span class="down" aria-hidden="true">↓</span>
+      <div class="level regional">
+        <div><h3>Regional</h3><span class="count">South-West, North-West, Diaspora</span></div>
+        <div class="posts"><span class="post">Regional Coordinator</span></div>
+        <p class="level-note">Each Regional Coordinator creates and oversees the chapters of their region.</p>
+      </div>
+      <span class="down" aria-hidden="true">↓</span>
+      <div class="level chapter">
+        <div><h3>Chapter</h3><span class="count">A local branch, e.g. Buea</span></div>
+        <div class="posts"><span class="post">President</span><span class="post">Vice President</span><span class="post">Secretary</span><span class="post">Vice Secretary</span><span class="post">Financial Secretary</span><span class="post">Treasurer</span><span class="post">Socials</span></div>
+        <p class="level-note">The Chapter President appoints the chapter's officers. The Financial Secretary registers members and handles money.</p>
+      </div>
+      <span class="down" aria-hidden="true">↓</span>
+      <div class="level">
+        <div><h3>Members</h3><span class="count">Everyone else</span></div>
+        <div class="posts"><span class="post">Ordinary member</span></div>
+        <p class="level-note">Members see their own records, the meetings they are called to, their documents, and messages sent to them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="setup">
+    <div class="section-head">
+      <span class="eyebrow">2 · Setting up</span>
+      <h2>From one President General to a working organisation</h2>
+      <p>Everyone starts inactive, the President General included, and becomes active once they belong to a chapter and their registration is recorded. Until then, officers can still do the setup work below.</p>
+    </div>
+    <ol class="steps">
+      <li><div><span class="who">President General</span><b>Creates a region with its Regional Coordinator</b><p>Creates the coordinator's account at the same time, with a temporary password.</p></div></li>
+      <li><div><span class="who">Regional Coordinator</span><b>Creates a chapter with its President and Financial Secretary</b><p>A chapter cannot exist without both, because the Financial Secretary is the one who registers members.</p></div></li>
+      <li><div><span class="who">Financial Secretary</span><b>Sets the chapter's registration fee</b><p>One amount for everyone in that chapter. Different chapters may charge different amounts.</p></div></li>
+      <li><div><span class="who">President General and Coordinator</span><b>Join a chapter</b><p>They pick their chapter from a list; a coordinator only from their own region. Once a chapter they could join exists, joining comes first: until they do, they cannot set up anything else.</p></div></li>
+      <li><div><span class="who">Financial Secretary</span><b>Collects registration on the Registration page</b><p>One click per person, starting with their own. Each person becomes active as soon as it is recorded.</p></div></li>
+      <li><div><span class="who">Chapter officers</span><b>Complete the team and register members</b><p>The President appoints the remaining officers; the Financial Secretary registers new members, who pay the fee and are active at once.</p></div></li>
+    </ol>
+  </section>
+
+  <section id="journey">
+    <div class="section-head">
+      <span class="eyebrow">3 · A member's journey</span>
+      <h2>Joining, staying active, moving</h2>
+    </div>
+    <div class="band">
+      <div class="flow" aria-label="Member journey">
+        <div class="node"><b>Registered</b><p>By their chapter's Financial Secretary, who records the fee.</p></div>
+        <div class="arrow">→</div>
+        <div class="node forest"><b>Active</b><p>Takes part in meetings, sees documents, pays towards projects.</p></div>
+        <div class="arrow">→</div>
+        <div class="node gold"><b>Yearly renewal</b><p>The President General starts it; everyone is inactive until they pay again.</p></div>
+        <div class="arrow">→</div>
+        <div class="node forest"><b>Active again</b><p>As soon as the year's registration is recorded.</p></div>
+      </div>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="tag gold">Moving chapter</span>
+        <h3>Transfers</h3>
+        <ul>
+          <li>Done by a Regional Coordinator (within their region) or the President General.</li>
+          <li>Any unpaid fine must be paid first.</li>
+          <li>A chapter post must be ended first; the member's history moves with them.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag earth">Suspension</span>
+        <h3>Suspending and reinstating</h3>
+        <ul>
+          <li>Always with a written reason, recorded in the audit log.</li>
+          <li>A suspended member cannot sign in; their records are kept.</li>
+          <li>Reinstating restores their access exactly as it was.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag forest">Posts</span>
+        <h3>Appointing officers</h3>
+        <ul>
+          <li>One person holds one post at a time; the current post is ended before a new one starts.</li>
+          <li>Vice Presidents hold all of their President's powers.</li>
+          <li>Every appointment and ending is recorded with who did it.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="running">
+    <div class="section-head">
+      <span class="eyebrow">4 · Meetings and the work that follows</span>
+      <h2>Meetings lead to decisions, and decisions lead to action</h2>
+      <p>Meetings are held at three levels. The Secretary of each level runs the paperwork; at regional level, which has no Secretary, the Regional Coordinator does.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Meeting</th><th>Called by</th><th>Who it is for</th></tr></thead>
+        <tbody>
+          <tr><td>Chapter</td><td>The chapter's Secretary</td><td>All the chapter's members, or its executives only</td></tr>
+          <tr><td>Regional</td><td>The Regional Coordinator</td><td>All members of the region, or chosen executives</td></tr>
+          <tr><td>National</td><td>The National Secretary General</td><td>All members, or a chosen mix of executives, whole regions and whole chapters</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="band">
+      <div class="flow" aria-label="Meeting flow">
+        <div class="node"><b>Meeting called</b><p>Date, place and agenda. Only the people it is for see it, and they are told at once.</p></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>Reminded</b><p>The day before and on the morning. One click adds it to Google, Outlook or a phone calendar.</p></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>Attendance taken</b><p>Present, late, excused or absent, by the Secretary.</p></div>
+        <div class="arrow">→</div>
+        <div class="node gold"><b>Minutes published</b><p>Written by the Secretary, then shared with everyone the meeting was for.</p></div>
+        <div class="arrow">→</div>
+        <div class="node forest"><b>Decisions and actions</b><p>Each action has a person responsible and a due date. The Secretary marks it done.</p></div>
+      </div>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="tag gold">Public Relations</span>
+        <h3>Documents</h3>
+        <ul>
+          <li>Uploaded once and shared with a chapter, a region, the whole organisation or chosen offices.</li>
+          <li>A meeting's papers are added by its Secretary and seen only by the people the meeting is for.</li>
+          <li>Downloads are checked and recorded.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag forest">Notifications</span>
+        <h3>Messages</h3>
+        <ul>
+          <li>Officers message their area or a group, such as all Chapter Presidents, with attachments.</li>
+          <li>Messages can be forwarded unchanged, with a note.</li>
+          <li>Meeting notices, reminders and assigned actions arrive here automatically.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="tag earth">Records</span>
+        <h3>On paper and in spreadsheets</h3>
+        <ul>
+          <li>Minutes, attendance registers, member lists and summaries print cleanly, with who printed them and when.</li>
+          <li>The same lists download as spreadsheets, holding only what that officer may already see. Every download is recorded.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="committees">
+    <div class="section-head">
+      <span class="eyebrow">5 · Committees</span>
+      <h2>Small teams that carry out a project</h2>
+    </div>
+    <ol class="steps">
+      <li><div><span class="who">Project manager</span><b>A New Project comes first</b><p>Whole organisation (National Financial Secretary), a region (Regional Coordinator) or a chapter (its Financial Secretary), with its amounts. Its project manager holds its money: the National Financial Secretary in office for a national project, the region's Regional Coordinator in office for a regional one; a chapter project's money stays with the chapter's Financial Secretary.</p></div></li>
+      <li><div><span class="who">President General, Coordinator or Chapter President</span><b>Creates a committee for that project</b><p>National committees by the President General, regional ones by the coordinator, chapter ones by the Chapter President. Several committees may share a project, for example by phase.</p></div></li>
+      <li><div><span class="who">The post in charge</span><b>Adds members and gives positions</b><p>President, Vice President, Secretary, Financial Secretary, Treasurer. One active committee per person.</p></div></li>
+      <li><div><span class="who">Committee</span><b>Does the work</b><p>Its own meetings, minutes and documents; reports to the post in charge, and receives project money from the project manager.</p></div></li>
+      <li><div><span class="who">The post in charge</span><b>Dissolves it when the purpose is served</b><p>With a written reason. Members are freed for other committees; records are kept.</p></div></li>
+    </ol>
+    <p>A project does not need a committee. A committee is run by the post at its level (President General, Regional Coordinator or Chapter President), whoever holds it at the time. It is visible only to its members, that post, the project manager and the President General. The Regional Coordinator can also see, but not change, the chapter committees in their region. On the portal, committees are grouped into national, regional and chapter committees.</p>
+  </section>
+
+  <section id="trust">
+    <div class="section-head">
+      <span class="eyebrow">6 · Trust and privacy</span>
+      <h2>How members are protected</h2>
+    </div>
+    <ul class="rules">
+      <li><b>No public sign-up</b><span>Only officers create accounts, after membership is complete at a chapter.</span></li>
+      <li><b>Members see their own</b><span>Personal records are visible to the member and to the officers responsible for them.</span></li>
+      <li><b>Contacts for officers only</b><span>Officers see phone and email beside names; ordinary members see names only.</span></li>
+      <li><b>Everything is recorded</b><span>The audit log keeps who did what and when. It cannot be edited or deleted.</span></li>
+      <li><b>Records are never deleted</b><span>Mistakes are corrected openly, with a reason that stays in the history.</span></li>
+      <li><b>Each power has its place</b><span>An officer acts only within their own chapter, region or the organisation.</span></li>
+      <li><b>Duties follow the post</b><span>Projects, committees, meetings and their money belong to the post, not the person. When someone hands over a post, everything they ran goes to their successor.</span></li>
+      <li><b>Everyone belongs to a chapter</b><span>Officers at every level included. Nobody is active until they are in a chapter and registered there.</span></li>
+    </ul>
+  </section>
+
+  <footer>NCUDA Member Portal · Organisation blueprint · Describes the portal as built in October 2026. Companion document: the Finance Blueprint.</footer>
+</div>

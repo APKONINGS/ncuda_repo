@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# allow the documented env template
+!.env.example
+
+# Local demo data saved by NCUDA_DEMO_STORE_FILE
+/.data/
